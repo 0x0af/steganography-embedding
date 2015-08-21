@@ -6,12 +6,14 @@ Created on Thu Jul 23 2015
 
 @author: Anton at 0x0af@ukr.net
 """
+import getopt
 
 import math
 
 import numpy
 import pywt
 from PIL import Image
+import sys
 
 
 def dhanalakshmi_embed(grayscale_container_path, grayscale_primary_watermark_path, grayscale_secondary_watermark_path,
@@ -267,16 +269,83 @@ def logistic_map_chaotic_decryption(ll, hl, lh, hh):  # some key?
     return ll, hl, lh, hh
 
 
-dhanalakshmi_embed("..\\steganography-embedding\\GrayscaleContainer.bmp",
-                   "..\\steganography-embedding\\GrayscaleWatermark.bmp",
-                   "..\\steganography-embedding\\GrayscaleSecondaryWatermark.bmp",
-                   "..\\steganography-embedding\\Dhanalakshmi_Watermarked_Image.bmp", 0.01,
-                   0.01)
+def main(argv):
+    mode = ''
+    grayscale_container_path = ''
+    grayscale_primary_watermark_path = ''
+    grayscale_secondary_watermark_path = ''
+    watermarked_image_path = ''
+    extracted_primary_watermark_path = ''
+    extracted_secondary_watermark_path = ''
+    alpha1 = 0
+    alpha2 = 0
 
-dhanalakshmi_extract("..\\steganography-embedding\\Dhanalakshmi_Watermarked_Image.bmp",
-                     "..\\steganography-embedding\\GrayscaleContainer.bmp",
-                     "..\\steganography-embedding\\GrayscaleWatermark.bmp",
-                     "..\\steganography-embedding\\GrayscaleSecondaryWatermark.bmp",
-                     "..\\steganography-embedding\\Dhanalakshmi_Extracted_Primary_Watermark.bmp",
-                     "..\\steganography-embedding\\Dhanalakshmi_Extracted_Secondary_Watermark.bmp",
-                     0.01, 0.01)
+    try:
+        opts, args = getopt.getopt(argv, "",
+                                   ["mode=", "grayscale_container=", "grayscale_primary_watermark=",
+                                    "grayscale_secondary_watermark=", "watermarked_image=",
+                                    "extracted_primary_watermark=", "extracted_secondary_watermark=",
+                                    "alpha1=", "alpha2="])
+    except getopt.GetoptError:
+        print '\r\nPlease, use this software this way:'
+        print 'Embedding: dhanalaksmi_embedding_method.py --mode embed --grayscale_container %path% ' \
+              '--grayscale_primary_watermark %path% --grayscale_secondary_watermark %path% ' \
+              '--watermarked_image %path% --alpha1 %alpha1% --alpha2 %alpha2%'
+        print 'Extracting: dhanalaksmi_embedding_method.py --mode extract --watermarked_image %path% ' \
+              '--grayscale_container %path% --grayscale_primary_watermark %path% --grayscale_secondary_watermark %path% ' \
+              '--extracted_primary_watermark %path% --extracted_secondary_watermark %path%  --alpha1 %alpha1% ' \
+              '--alpha2 %alpha2%'
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt == '--mode':
+            mode = arg
+        elif opt == '--grayscale_container':
+            grayscale_container_path = arg
+        elif opt == '--grayscale_primary_watermark':
+            grayscale_primary_watermark_path = arg
+        elif opt == '--grayscale_secondary_watermark':
+            grayscale_secondary_watermark_path = arg
+        elif opt == '--watermarked_image':
+            watermarked_image_path = arg
+        elif opt == '--extracted_primary_watermark':
+            extracted_primary_watermark_path = arg
+        elif opt == '--extracted_secondary_watermark':
+            extracted_secondary_watermark_path = arg
+        elif opt == '--alpha1':
+            alpha1 = float(arg)
+        elif opt == '--alpha2':
+            alpha2 = float(arg)
+
+    if mode == 'embed':
+        if grayscale_container_path != "" and grayscale_primary_watermark_path != "" and \
+                        grayscale_secondary_watermark_path != "" and watermarked_image_path != "" and \
+                        alpha1 != 0 and alpha2 != 0:
+            print '\r\nEmbedding started\r\n'
+            dhanalakshmi_embed(grayscale_container_path, grayscale_primary_watermark_path,
+                               grayscale_secondary_watermark_path, watermarked_image_path, alpha1, alpha2)
+            sys.exit(0)
+    elif mode == 'extract':
+        if watermarked_image_path != "" and grayscale_container_path != "" and \
+                        grayscale_primary_watermark_path != "" and grayscale_secondary_watermark_path != "" and \
+                        extracted_primary_watermark_path != "" and extracted_secondary_watermark_path != "" and \
+                        alpha1 != 0 and alpha2 != 0:
+            print '\r\nExtracting started\r\n'
+            dhanalakshmi_extract(watermarked_image_path, grayscale_container_path, grayscale_primary_watermark_path,
+                                 grayscale_secondary_watermark_path, extracted_primary_watermark_path,
+                                 extracted_secondary_watermark_path, alpha1, alpha2)
+            sys.exit(0)
+
+    print '\r\nPlease, use this software this way:'
+    print 'Embedding: dhanalaksmi_embedding_method.py --mode embed --grayscale_container %path% ' \
+          '--grayscale_primary_watermark %path% --grayscale_secondary_watermark %path% ' \
+          '--watermarked_image %path% --alpha1 %alpha1% --alpha2 %alpha2%'
+    print 'Extracting: dhanalaksmi_embedding_method.py --mode extract --watermarked_image %path% ' \
+          '--grayscale_container %path% --grayscale_primary_watermark %path% --grayscale_secondary_watermark %path% ' \
+          '--extracted_primary_watermark %path% --extracted_secondary_watermark %path%  --alpha1 %alpha1% ' \
+          '--alpha2 %alpha2%'
+    sys.exit(2)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

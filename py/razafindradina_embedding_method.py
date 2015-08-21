@@ -6,11 +6,13 @@ Created on Thu Jul 23 2015
 
 @author: Anton at 0x0af@ukr.net
 """
+import getopt
+import sys
 
 import numpy
-import scipy
 from scipy.fftpack import dct, idct
 from PIL import Image
+from scipy.linalg import schur
 
 
 def schur_decomposition(grayscale_image_2darray):
@@ -23,7 +25,7 @@ def schur_decomposition(grayscale_image_2darray):
      0x0af@ukr.net, 23-July-2015
     """
 
-    triangular_matrix, unitary_matrix = scipy.linalg.schur(grayscale_image_2darray)
+    triangular_matrix, unitary_matrix = schur(grayscale_image_2darray)
 
     return triangular_matrix, unitary_matrix
 
@@ -52,10 +54,10 @@ def razafindradina_embed(grayscale_container_path, grayscale_watermark_path, wat
     grayscale_container_2darray = numpy.asarray(Image.open(grayscale_container_path).convert("L"))
     grayscale_watermark_2darray = numpy.asarray(Image.open(grayscale_watermark_path).convert("L"))
 
-    assert (grayscale_container_2darray.shape[0] == grayscale_container_2darray.shape[1]) and (
-        grayscale_container_2darray.shape[0] == grayscale_watermark_2darray.shape[0]) and (
-               grayscale_container_2darray.shape[1] == grayscale_watermark_2darray.shape[
-                   1]), 'GrayscaleContainer and GrayscaleWatermark sizes do not match or not square'
+    assert (grayscale_container_2darray.shape[0] == grayscale_container_2darray.shape[1]) and \
+           (grayscale_container_2darray.shape[0] == grayscale_watermark_2darray.shape[0]) and \
+           (grayscale_container_2darray.shape[1] == grayscale_watermark_2darray.shape[
+               1]), 'GrayscaleContainer and GrayscaleWatermark sizes do not match or not square'
 
     # Perform DCT on GrayscaleContainer
 
@@ -136,13 +138,65 @@ def razafindradina_extract(grayscale_stego_path, grayscale_container_path, grays
     return
 
 
-razafindradina_embed("..\\steganography-embedding\\GrayscaleContainer.bmp",
-                     "..\\steganography-embedding\\SameSizeGrayscaleWatermark.bmp",
-                     "..\\steganography-embedding\\Razafindradina_Watermarked_Image.bmp",
-                     0.01)
+def main(argv):
+    mode = ''
+    grayscale_container_path = ''
+    same_size_grayscale_watermark_path = ''
+    watermarked_image_path = ''
+    extracted_watermark_path = ''
+    alpha = 0
 
-razafindradina_extract("..\\steganography-embedding\\Razafindradina_Watermarked_Image.bmp",
-                       "..\\steganography-embedding\\GrayscaleContainer.bmp",
-                       "..\\steganography-embedding\\SameSizeGrayscaleWatermark.bmp",
-                       "..\\steganography-embedding\\Razafindradina_Extracted_Watermark.bmp",
-                       0.01)
+    try:
+        opts, args = getopt.getopt(argv, "",
+                                   ["mode=", "grayscale_container=", "same_size_grayscale_watermark=",
+                                    "watermarked_image=",
+                                    "extracted_watermark=", "alpha="])
+    except getopt.GetoptError:
+        print '\r\nPlease, use this software this way:'
+        print 'Embedding: razafindradina_embedding_method.py --mode embed --grayscale_container %path% ' \
+              '--same_size_grayscale_watermark %path% --watermarked_image %path% --alpha %alpha%'
+        print 'Extracting: razafindradina_embedding_method.py --mode extract --watermarked_image %path% ' \
+              '--grayscale_container %path% --same_size_grayscale_watermark %path% ' \
+              '--extracted_watermark %path% --alpha %alpha%\r\n'
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt == '--mode':
+            mode = arg
+        elif opt == '--grayscale_container':
+            grayscale_container_path = arg
+        elif opt == '--same_size_grayscale_watermark':
+            same_size_grayscale_watermark_path = arg
+        elif opt == '--watermarked_image':
+            watermarked_image_path = arg
+        elif opt == '--extracted_watermark':
+            extracted_watermark_path = arg
+        elif opt == '--alpha':
+            alpha = float(arg)
+
+    if mode == 'embed':
+        if grayscale_container_path != "" and same_size_grayscale_watermark_path != "" and \
+                        watermarked_image_path != "" and alpha != 0:
+            print '\r\nEmbedding started\r\n'
+            razafindradina_embed(grayscale_container_path, same_size_grayscale_watermark_path, watermarked_image_path,
+                                 alpha)
+            sys.exit(0)
+    elif mode == 'extract':
+        if watermarked_image_path != "" and grayscale_container_path != "" and \
+                        same_size_grayscale_watermark_path != "" and extracted_watermark_path != "" and alpha != 0:
+            print '\r\nExtracting started\r\n'
+            razafindradina_extract(watermarked_image_path, grayscale_container_path, same_size_grayscale_watermark_path,
+                                   extracted_watermark_path, alpha)
+            sys.exit(0)
+
+    print '\r\nPlease, use this software this way:'
+    print 'Embedding: razafindradina_embedding_method.py --mode embed --grayscale_container %path% ' \
+          '--same_size_grayscale_watermark %path% --watermarked_image %path% --alpha %alpha%'
+    print 'Extracting: razafindradina_embedding_method.py --mode extract --watermarked_image %path% ' \
+          '--grayscale_container %path% --same_size_grayscale_watermark %path% ' \
+          '--extracted_watermark %path% --alpha %alpha%\r\n'
+    sys.exit(2)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

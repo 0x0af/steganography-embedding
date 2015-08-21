@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # coding: utf-8
 
 
@@ -8,11 +10,13 @@ Created on Thu Jul 23 2015
 """
 
 import math
+import sys
+import getopt
 
 import numpy
-import scipy
 from pyevolve import Crossovers, Mutators, Selectors, G1DBinaryString, GSimpleGA
 from PIL import Image
+from scipy.linalg import hadamard
 
 
 def alvarez_embed(grayscale_container_path, binary_watermark_path, watermarked_image_path):
@@ -62,43 +66,45 @@ def alvarez_embed(grayscale_container_path, binary_watermark_path, watermarked_i
 
     # print 'Hadamard matrix size: ', hadamard_matrix_size
 
-    H = scipy.linalg.hadamard(hadamard_matrix_size)
+    h = hadamard(hadamard_matrix_size)
 
-    # print 'Hadamard matrix H: ', H
+    # print 'Hadamard matrix h: ', h
 
     block_size = int(math.floor(float(n) / float(m)))
+
+    watermarked_image_2darray = numpy.copy(grayscale_container_2darray)
 
     for i in range(0, m * m - 1):
         col_index = i % (n / block_size)
         row_index = i / (n / block_size)
-        A = grayscale_container_2darray[col_index * block_size:col_index * block_size + hadamard_matrix_size,
+        a = grayscale_container_2darray[col_index * block_size:col_index * block_size + hadamard_matrix_size,
             row_index * block_size:row_index * block_size + hadamard_matrix_size]
         # if i == 0 :
-        #    print A
-        B = numpy.dot(numpy.dot(H, A), H.transpose()) / hadamard_matrix_size
+        #    print a
+        _b = numpy.dot(numpy.dot(h, a), h.transpose()) / hadamard_matrix_size
         # if i == 0 :
-        #    print B
-        b1 = B[3][3]
-        b2 = B[3][5]
+        #    print b
+        b1 = _b[3][3]
+        b2 = _b[3][5]
         # let b equal hadamard_matrix_size/4, as proposed by authors in 3.1 -> 1
         b = hadamard_matrix_size / 4
         d = abs((b1 - b2) / 2)
         if binary_watermark_1darray[i]:
-            B[3][3] = b1 - d - b
-            B[3][5] = b2 + d + b
+            _b[3][3] = b1 - d - b
+            _b[3][5] = b2 + d + b
         else:
-            B[3][3] = b1 + d + b
-            B[3][5] = b2 - d - b
-        A = numpy.dot(numpy.dot(H.transpose(), B), H) / hadamard_matrix_size
+            _b[3][3] = b1 + d + b
+            _b[3][5] = b2 - d - b
+        a = numpy.dot(numpy.dot(h.transpose(), _b), h) / hadamard_matrix_size
         # After HT, some values are more than 255 and less than 0, so fix it
-        A[A > 255] = 255
-        A[A < 0] = 0
+        a[a > 255] = 255
+        a[a < 0] = 0
         # if i == 0 :
-        #    print A
-        grayscale_container_2darray[col_index * block_size:col_index * block_size + hadamard_matrix_size,
-        row_index * block_size:row_index * block_size + hadamard_matrix_size] = A
+        #    print a
+        watermarked_image_2darray[col_index * block_size:col_index * block_size + hadamard_matrix_size,
+        row_index * block_size:row_index * block_size + hadamard_matrix_size] = a
 
-    watermarked_image = Image.fromarray(numpy.uint8(grayscale_container_2darray))
+    watermarked_image = Image.fromarray(numpy.uint8(watermarked_image_2darray))
     # watermarked_image.show()
 
     # Write image to file
@@ -147,9 +153,9 @@ def alvarez_extract(grayscale_stego_path, extracted_watermark_path, watermark_si
 
     # print 'Hadamard matrix size: ', hadamard_matrix_size
 
-    H = scipy.linalg.hadamard(hadamard_matrix_size)
+    h = hadamard(hadamard_matrix_size)
 
-    # print 'Hadamard matrix H: ', H
+    # print 'Hadamard matrix h: ', h
 
     block_size = int(math.floor(float(n) / float(m)))
 
@@ -158,15 +164,15 @@ def alvarez_extract(grayscale_stego_path, extracted_watermark_path, watermark_si
     for i in range(0, m * m - 1):
         col_index = i % (n / block_size)
         row_index = i / (n / block_size)
-        A = grayscale_stego_2darray[col_index * block_size:col_index * block_size + hadamard_matrix_size,
+        a = grayscale_stego_2darray[col_index * block_size:col_index * block_size + hadamard_matrix_size,
             row_index * block_size:row_index * block_size + hadamard_matrix_size]
         # if i == 0 :
-        #    print A
-        B = numpy.dot(numpy.dot(H, A), H.transpose()) / hadamard_matrix_size
+        #    print a
+        b = numpy.dot(numpy.dot(h, a), h.transpose()) / hadamard_matrix_size
         # if i == 0 :
-        #    print B
-        b1 = B[3][3]
-        b2 = B[3][5]
+        #    print b
+        b1 = b[3][3]
+        b2 = b[3][5]
         extracted_watermark[i] = 255 if b1 > b2 else 0
 
     extracted_watermark_image = Image.fromarray(numpy.uint8(extracted_watermark.reshape(m, m)))
@@ -231,9 +237,58 @@ def genetic_algorithm_pretreatment(binary_watermark):
     return permuted_binary_watermark
 
 
-alvarez_embed("..\\steganography-embedding\\bmp\GrayscaleContainer.bmp",
-              "..\\steganography-embedding\\bmp\BinaryWatermark.bmp",
-              "..\\steganography-embedding\\bmp\Alvarez_Watermarked_Image.bmp")
+def main(argv):
+    mode = ''
+    grayscale_container_path = ''
+    binary_watermark_path = ''
+    watermarked_image_path = ''
+    extracted_binary_watermark_path = ''
+    watermark_size = 0
 
-alvarez_extract("..\\steganography-embedding\\bmp\Alvarez_Watermarked_Image.bmp",
-                "..\\steganography-embedding\\bmp\Alvarez_Extracted_Binary_Watermark.bmp", 100)
+    try:
+        opts, args = getopt.getopt(argv, "",
+                                   ["mode=", "grayscale_container=", "binary_watermark=", "watermarked_image=",
+                                    "extracted_binary_watermark=", "watermark_size="])
+    except getopt.GetoptError:
+        print '\r\nPlease, use this software this way:'
+        print 'Embedding: alvarez_embedding_method.py --mode embed --grayscale_container %path% ' \
+              '--binary_watermark %path% --watermarked_image %path%'
+        print 'Extracting: alvarez_embedding_method.py --mode extract --watermarked_image %path% ' \
+              '--extracted_binary_watermark %path% --watermark_size %size%\r\n'
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt == '--mode':
+            mode = arg
+        elif opt == '--grayscale_container':
+            grayscale_container_path = arg
+        elif opt == '--binary_watermark':
+            binary_watermark_path = arg
+        elif opt == '--watermarked_image':
+            watermarked_image_path = arg
+        elif opt == '--extracted_binary_watermark':
+            extracted_binary_watermark_path = arg
+        elif opt == '--watermark_size':
+            watermark_size = int(arg)
+
+    if mode == 'embed':
+        if grayscale_container_path != "" and binary_watermark_path != "" and watermarked_image_path != "":
+            print '\r\nEmbedding started\r\n'
+            alvarez_embed(grayscale_container_path, binary_watermark_path, watermarked_image_path)
+            sys.exit(0)
+    elif mode == 'extract':
+        if watermarked_image_path != "" and extracted_binary_watermark_path != "" and watermark_size != 0:
+            print '\r\nExtracting started\r\n'
+            alvarez_extract(watermarked_image_path, extracted_binary_watermark_path, watermark_size)
+            sys.exit(0)
+
+    print '\r\nPlease, use this software this way:'
+    print 'Embedding: alvarez_embedding_method.py --mode embed --grayscale_container %path% ' \
+          '--binary_watermark %path% --watermarked_image %path%'
+    print 'Extracting: alvarez_embedding_method.py --mode extract --watermarked_image %path% ' \
+          '--extracted_binary_watermark %path% --watermark_size %size%\r\n'
+    sys.exit(2)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
