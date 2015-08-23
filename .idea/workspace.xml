@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2b6d2b6-3f95-4ff8-8d6e-b081c478ccc7" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Bhatnagar_Coarsest_Level_Extracted_Watermark.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Bhatnagar_Finest_Level_Extracted_Watermark.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\BinaryWatermark.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\GrayscaleContainer.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\GrayscaleSecondaryWatermark.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\GrayscaleWatermark.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Razafindradina_Extracted_Watermark.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Razafindradina_Watermarked_Image.bmp" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\SameSizeGrayscaleWatermark.bmp" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\.ipynb_checkpoints\AlvarezEmbeddingMethod-checkpoint.ipynb" afterPath="$PROJECT_DIR$/ipynb/.ipynb_checkpoints/AlvarezEmbeddingMethod-checkpoint.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\.ipynb_checkpoints\BhatnagarEmbeddingMethod-checkpoint.ipynb" afterPath="$PROJECT_DIR$/ipynb/.ipynb_checkpoints/BhatnagarEmbeddingMethod-checkpoint.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\.ipynb_checkpoints\DhanalakshmiEmbeddingMethod-checkpoint.ipynb" afterPath="$PROJECT_DIR$/ipynb/.ipynb_checkpoints/DhanalakshmiEmbeddingMethod-checkpoint.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\.ipynb_checkpoints\RazafindradinaEmbeddingMethod-checkpoint.ipynb" afterPath="$PROJECT_DIR$/ipynb/.ipynb_checkpoints/RazafindradinaEmbeddingMethod-checkpoint.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\AlvarezEmbeddingMethod.ipynb" afterPath="$PROJECT_DIR$/ipynb/AlvarezEmbeddingMethod.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\BhatnagarEmbeddingMethod.ipynb" afterPath="$PROJECT_DIR$/ipynb/BhatnagarEmbeddingMethod.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\DhanalakshmiEmbeddingMethod.ipynb" afterPath="$PROJECT_DIR$/ipynb/DhanalakshmiEmbeddingMethod.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\RazafindradinaEmbeddingMethod.ipynb" afterPath="$PROJECT_DIR$/ipynb/RazafindradinaEmbeddingMethod.ipynb" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Alvarez_Extracted_Binary_Watermark.bmp" afterPath="$PROJECT_DIR$/bmp/alvarez_extracted_binary_watermark.bmp" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Alvarez_Watermarked_Image.bmp" afterPath="$PROJECT_DIR$/bmp/alvarez_watermarked_image.bmp" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Bhatnagar_Watermarked_Image.bmp" afterPath="$PROJECT_DIR$/bmp/bhatnagar_watermarked_image.bmp" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Dhanalakshmi_Watermarked_Image.bmp" afterPath="$PROJECT_DIR$/bmp/dhanalakshmi_watermarked_image.bmp" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Razafindradina_Extracted_Watermark.bmp" afterPath="$PROJECT_DIR$/bmp/razafindradina_extracted_watermark.bmp" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\bmp\Razafindradina_Watermarked_Image.bmp" afterPath="$PROJECT_DIR$/bmp/razafindradina_watermarked_image.bmp" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\py\AlvarezEmbeddingMethod.py" afterPath="$PROJECT_DIR$/py/alvarez_embedding_method.py" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\py\BhatnagarEmbeddingMethod.py" afterPath="$PROJECT_DIR$/py/bhatnagar_embedding_method.py" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\py\DhanalakshmiEmbeddingMethod.py" afterPath="$PROJECT_DIR$/py/dhanalakshmi_embedding_method.py" />
-      <change type="MOVED" beforePath="C:\Users\Tony\Documents\GitHub\steganography-embedding\py\RazafindradinaEmbeddingMethod.py" afterPath="$PROJECT_DIR$/py/razafindradina_embedding_method.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bmp/grayscale_secondary_watermark.bmp" afterPath="$PROJECT_DIR$/bmp/grayscale_secondary_watermark.bmp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="steganography-embedding.iws" />
@@ -89,7 +63,7 @@
       <file leaf-file-name="razafindradina_embedding_method.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/py/razafindradina_embedding_method.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.3404603">
+            <state vertical-scroll-proportion="0.5246711">
               <caret line="191" column="51" selection-start-line="191" selection-start-column="51" selection-end-line="191" selection-end-column="51" />
               <folding>
                 <element signature="e#86#99#0" expanded="true" />
@@ -156,6 +130,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,8 +152,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -497,7 +471,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -536,6 +510,46 @@
     <entry file="file://$PROJECT_DIR$/py/alvarez_embedding_method.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding>
+            <element signature="e#106#117#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/bhatnagar_embedding_method.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="412" column="13" selection-start-line="412" selection-start-column="13" selection-end-line="412" selection-end-column="13" />
+          <folding>
+            <element signature="e#87#97#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/dhanalakshmi_embedding_method.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <folding>
+            <element signature="e#86#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/razafindradina_embedding_method.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#86#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/py/alvarez_embedding_method.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="231" column="0" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
           <folding>
             <element signature="e#106#117#0" expanded="true" />
@@ -547,7 +561,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#87#97#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -565,7 +581,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#86#99#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -631,7 +649,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/py/razafindradina_embedding_method.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.3404603">
+        <state vertical-scroll-proportion="0.5246711">
           <caret line="191" column="51" selection-start-line="191" selection-start-column="51" selection-end-line="191" selection-end-column="51" />
           <folding>
             <element signature="e#86#99#0" expanded="true" />
