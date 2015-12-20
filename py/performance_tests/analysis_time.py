@@ -62,7 +62,7 @@ def calculate_cutoff_coefficients(multifractal, qstep=0.1, u_lim=15, l_lim=-15, 
 
 
 def get_row_spectrum(multifractal, qstep=0.1, u_lim=15, l_lim=-15):
-    scales = umath.floor(2.0 ** arange(1, 8.1, qstep)).astype('i4')
+    scales = numpy.floor(2.0 ** arange(1, 8.1, qstep)).astype('i4')
     RW = rwalk(multifractal.ravel())
     RMS = fast_rms(RW, scales, 1)
 
