@@ -10,5 +10,5 @@ for root, dirs, filenames in os.walk('/home/ftpman'):
         try:
             analyze_image(f, Image.open('/home/ftpman/' + f), 512)
             send_positive_report(f)
-        except:
-            send_issue_report(f)
+        except Exception, e:
+            send_issue_report(f, e)
