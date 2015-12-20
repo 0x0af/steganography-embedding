@@ -43,7 +43,7 @@ def send_positive_report(filename):
     server.quit()
 
 
-def send_issue_report(image_filename, e):
+def send_issue_report(image_filename, e, stacktrace):
     host = 'smtp.gmail.com'
     port = 587
     login = 'antonf.vit@gmail.com'
@@ -58,8 +58,8 @@ def send_issue_report(image_filename, e):
     fromaddr = 'Stego Reporter Bot'
     tolist = '0x0af@ukr.net'
     sub = 'Stego Report ' + datetime.date.today().strftime('%d, %b %Y')
-    body = 'Problem appeared during the workflow, please give some attention.\r\nProblematic picture: ' \
-           + image_filename + '\r\nStackTrace: ' + e.message
+    body = 'Problem appeared during the workflow (' + e + '), please give some attention.\r\nProblematic picture: ' \
+           + image_filename + '\r\nStackTrace: ' + stacktrace
 
     msg = email.MIMEMultipart.MIMEMultipart()
     msg['From'] = fromaddr
