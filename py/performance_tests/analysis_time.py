@@ -122,11 +122,9 @@ def analyze_image(image_name, image, skip):
 
     timespan = time.clock() - t0
 
-    scipy.io.savemat('D:/lena.mat',
+    scipy.io.savemat(image_name + '.mat',
                      mdict={'image_name': image_name, 'image': matrix_truecolor, 'spectrum': spectrum,
                             'timespan': timespan})
-
-# analyze_image('lena', Image.open('D:\\PyCharmProjects\\steganography-embedding\\bmp\\empty_containers\\lenna.bmp'), 512)
 
 # def analyze_time:
 # savefig(str(skip) + str(qstep) + '.png')
