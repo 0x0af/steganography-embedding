@@ -5,6 +5,7 @@ import scipy
 from PIL import Image
 from pylab import *
 from scipy import io
+from numpy import *
 
 from py.multifractal_analysis_methods.mfdfa import *
 
@@ -66,7 +67,7 @@ def get_row_spectrum(multifractal, qstep=0.1, u_lim=15, l_lim=-15):
     RW = rwalk(multifractal.ravel())
     RMS = fast_rms(RW, scales, 1)
 
-    qs = arange(l_lim + qstep, u_lim + qstep, qstep)
+    qs = numpy.arange(l_lim + qstep, u_lim + qstep, qstep)
     Fq = comp_fq(RMS, qs)
 
     def mdfa(x, a_scales, a_qs):
