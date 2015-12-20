@@ -58,7 +58,7 @@ def send_issue_report(image_filename, e, stacktrace):
     fromaddr = 'Stego Reporter Bot'
     tolist = '0x0af@ukr.net'
     sub = 'Stego Report ' + datetime.date.today().strftime('%d, %b %Y')
-    body = 'Problem appeared during the workflow (' + e + '), please give some attention.\r\nProblematic picture: ' \
+    body = 'Problem appeared during the workflow (' + str(e) + '), please give some attention.\r\nProblematic picture: ' \
            + image_filename + '\r\nStackTrace: ' + stacktrace
 
     msg = email.MIMEMultipart.MIMEMultipart()
