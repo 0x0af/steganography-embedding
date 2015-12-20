@@ -19,6 +19,7 @@ from scipy import misc
 from py.embedding_methods.embedding_method import *
 from py.pseudorandomness_sources.arnold_cat_map import ArnoldCatMapDecoder
 from py.pseudorandomness_sources.arnold_cat_map import ArnoldCatMapEncoder
+from py.pseudorandomness_sources.logistic_map import LogisticMapEncoder, LogisticMapDecoder
 
 
 class DeyMethodConfig(EmbeddingMethodConfig):
@@ -137,5 +138,5 @@ class DeyExtractor(Extractor):
 # Decode time: 3.8779849774004456
 #  ---
 
-EmbeddingMethodTestSuite.test_method_subjective_quality(DeyEmbedder, DeyExtractor, ArnoldCatMapEncoder,
-                                                        ArnoldCatMapDecoder)
+# EmbeddingMethodTestSuite.test_method_subjective_quality(DeyEmbedder, DeyExtractor, LogisticMapEncoder,
+#                                                         LogisticMapDecoder)
