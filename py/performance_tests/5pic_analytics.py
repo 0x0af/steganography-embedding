@@ -9,7 +9,7 @@ from py.performance_tests.send_report import send_positive_report, send_issue_re
 for root, dirs, filenames in os.walk('/home/ftpman'):
     for f in filenames:
         try:
-            analyze_image(f, Image.open('/home/ftpman/' + f), 512)
+            analyze_image(f, Image.open('/home/ftpman/' + f), 1)
             send_positive_report(f + '.mat')
         except Exception, e:
             send_issue_report(f, e, repr(traceback.format_exc()))

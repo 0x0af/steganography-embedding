@@ -1,4 +1,0 @@
-from PIL import Image
-from py.performance_tests.analysis_time import analyze_image
-
-analyze_image('im1.jpg', Image.open('/home/ftpman/im1.jpg'), 512)
