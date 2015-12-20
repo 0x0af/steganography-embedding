@@ -94,7 +94,7 @@ def analyze_image(image_name, image, skip):
 
     matrix_truecolor = numpy.array(image)
 
-    spectrum = zeros((3, 512, 2, 300))  # 3 color channels, 512 rows, 2 lines of 300 values
+    spectrum = numpy.zeros((3, 512, 2, 300))  # 3 color channels, 512 rows, 2 lines of 300 values
 
     t0 = time.clock()
 

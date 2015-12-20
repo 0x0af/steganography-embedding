@@ -45,6 +45,7 @@ Citation:
 
 """
 import numpy
+from numpy import *
 from pylab import *
 
 __all__ = ["fast_rms", "comp_rms", "comp_fq", "simple_rms", "rwalk"]
