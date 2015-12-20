@@ -2,7 +2,7 @@
 import datetime
 import email
 import smtplib
-from email import MIMEText
+from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from os.path import basename
 

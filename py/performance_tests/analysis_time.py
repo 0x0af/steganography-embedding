@@ -1,22 +1,18 @@
+import time
+
 import numpy
 import scipy
-import time
 from PIL import Image
 from pylab import *
-from scipy import misc, io
+from scipy import io
+
 from py.multifractal_analysis_methods.mfdfa import *
 
 
 def calculate_cutoff_coefficients(multifractal, qstep=0.1, u_lim=15, l_lim=-15, cutoff_level=0.005):
-    # import time
-
-    # scstep = 1 / qstep  # 8
-    scales = floor(2.0 ** arange(1, 8.1, qstep)).astype('i4')
+    scales = numpy.floor(2.0 ** arange(1, 8.1, qstep)).astype('i4')
     RW = rwalk(multifractal.ravel())
-    # t0 = time.clock()
     RMS = fast_rms(RW, scales, 1)
-    # dtfast = time.clock() - t0
-    # print 'fast RMS took %0.3fs' % dtfast
 
     qs = arange(l_lim + qstep, u_lim + qstep, qstep)
     Fq = comp_fq(RMS, qs)
@@ -25,7 +21,7 @@ def calculate_cutoff_coefficients(multifractal, qstep=0.1, u_lim=15, l_lim=-15, 
         RW = rwalk(x)
         RMS = fast_rms(RW, a_scales)
         Fq = comp_fq(RMS, a_qs)
-        Hq = zeros(len(a_qs), 'f8')
+        Hq = numpy.zeros(len(a_qs), 'f8')
         for qi, q in enumerate(a_qs):
             C = polyfit(log2(a_scales), log2(Fq[:, qi]), 1)
             Hq[qi] = C[0]
@@ -36,13 +32,7 @@ def calculate_cutoff_coefficients(multifractal, qstep=0.1, u_lim=15, l_lim=-15, 
         Dq = (a_qs[:-1] * hq) - tq[:-1]
         return Fq, Hq, hq, tq, Dq
 
-    # figure()
     Fq, Hq, hq, tq, Dq = mdfa(multifractal.ravel(), scales, qs)
-    # plot(qs, Hq, '-')
-    # xlabel('q')
-    # ylabel('Hq')
-
-    # legend(['Multifractal'])
 
     Hq_max = Hq.max()
 
@@ -72,12 +62,9 @@ def calculate_cutoff_coefficients(multifractal, qstep=0.1, u_lim=15, l_lim=-15, 
 
 
 def get_row_spectrum(multifractal, qstep=0.1, u_lim=15, l_lim=-15):
-    scales = floor(2.0 ** arange(1, 8.1, qstep)).astype('i4')
+    scales = umath.floor(2.0 ** arange(1, 8.1, qstep)).astype('i4')
     RW = rwalk(multifractal.ravel())
-    # t0 = time.clock()
     RMS = fast_rms(RW, scales, 1)
-    # dtfast = time.clock() - t0
-    # print 'fast RMS took %0.3fs' % dtfast
 
     qs = arange(l_lim + qstep, u_lim + qstep, qstep)
     Fq = comp_fq(RMS, qs)
@@ -86,7 +73,7 @@ def get_row_spectrum(multifractal, qstep=0.1, u_lim=15, l_lim=-15):
         RW = rwalk(x)
         RMS = fast_rms(RW, a_scales)
         Fq = comp_fq(RMS, a_qs)
-        Hq = zeros(len(a_qs), 'f8')
+        Hq = numpy.zeros(len(a_qs), 'f8')
         for qi, q in enumerate(a_qs):
             C = polyfit(log2(a_scales), log2(Fq[:, qi]), 1)
             Hq[qi] = C[0]

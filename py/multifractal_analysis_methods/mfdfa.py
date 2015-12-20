@@ -65,7 +65,7 @@ def rw(x, w, step=1):
 def rwalk(x, axis=-1):
     shp = list(x.shape)
     shp[axis] = 1
-    return cumsum(x - x.mean(axis).reshape(*shp), axis)
+    return numpy.cumsum(x - x.mean(axis).reshape(*shp), axis)
 
 
 def comp_rms(x, scales, m=1, verbose=False):
