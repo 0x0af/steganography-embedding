@@ -17,7 +17,7 @@ import scipy
 import skimage
 from skimage import color
 from scipy import misc
-from py.embedding_methods.embedding_method import *
+from py.staganography.embedding_method import *
 from py.pseudorandomness_sources.arnold_cat_map import ArnoldCatMapEncoder, ArnoldCatMapDecoder
 
 

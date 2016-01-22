@@ -3,11 +3,10 @@ import time
 import numpy
 import scipy
 from PIL import Image
-from pylab import *
-from scipy import io
 from numpy import *
+from scipy import io
 
-from py.multifractal_analysis_methods.mfdfa import *
+from py.multifractal_analysis.mfdfa_core import *
 
 
 def calculate_cutoff_coefficients(multifractal, qstep=0.1, u_lim=15, l_lim=-15, cutoff_level=0.005):
@@ -87,7 +86,10 @@ def get_row_spectrum(multifractal, qstep=0.1, u_lim=15, l_lim=-15):
 
     Fq, Hq, hq, tq, Dq = mdfa(multifractal.ravel(), scales, qs)
 
-    return Hq, qs
+    Dq.resize((1, 300))
+    hq.resize((1, 300))
+
+    return Hq, qs, Dq, hq
 
 
 def analyze_image(image_name, image, skip):
@@ -95,7 +97,7 @@ def analyze_image(image_name, image, skip):
 
     matrix_truecolor = numpy.array(image)
 
-    spectrum = numpy.zeros((3, 512, 2, 300))  # 3 color channels, 512 rows, 2 lines of 300 values
+    spectrum = numpy.zeros((3, 512, 4, 300))  # 3 color channels, 512 rows, 4 lines of 300 values
 
     t0 = time.clock()
 
@@ -104,9 +106,11 @@ def analyze_image(image_name, image, skip):
         matrix_grayscale = matrix_truecolor[:, :, color_channel]
 
         for row_index in range(0, matrix_grayscale.shape[0], skip):
-            Hq, qs = get_row_spectrum(matrix_grayscale[:, row_index])
+            Hq, qs, Dq, hq = get_row_spectrum(matrix_grayscale[:, row_index])
             spectrum[color_channel][row_index][0] = Hq
             spectrum[color_channel][row_index][1] = qs
+            spectrum[color_channel][row_index][2] = Dq
+            spectrum[color_channel][row_index][3] = hq
 
     timespan = time.clock() - t0
 
