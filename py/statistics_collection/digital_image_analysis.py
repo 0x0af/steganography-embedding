@@ -19,7 +19,7 @@ G = 0.01
 
 
 def analyze_dir(directory, start_index, stop_index):
-    watermark = numpy.asarray(Image.open(directory + '\\' + STEGO_NAME))
+    watermark = numpy.asarray(Image.open(directory + '/' + STEGO_NAME))
     filenames = {}
 
     for i in range(start_index, stop_index + 1, 1):
@@ -27,7 +27,7 @@ def analyze_dir(directory, start_index, stop_index):
 
     for f in filenames.itervalues():
         try:
-            c_image = Image.open(directory + '\\' + f)
+            c_image = Image.open(directory + '/' + f)
             c_image.resize((512, 512), Image.ANTIALIAS)
             container = numpy.asarray(c_image)
             c_name = f + '-c'
