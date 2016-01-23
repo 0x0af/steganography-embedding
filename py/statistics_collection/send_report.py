@@ -7,7 +7,7 @@ from email.mime.application import MIMEApplication
 from os.path import basename
 
 
-def send_positive_report(filename):
+def send_positive_report(*filenames):
     host = 'smtp.gmail.com'
     port = 587
     login = 'antonf.vit@gmail.com'
@@ -22,7 +22,10 @@ def send_positive_report(filename):
     fromaddr = 'Stego Reporter Bot'
     tolist = '0x0af@ukr.net'
     sub = 'Stego Report ' + datetime.date.today().strftime('%d, %b %Y')
-    body = 'New block of image statistics is ready. Please, see the data pinned'
+    body = 'New block of image statistics is ready.\r\nOutput filenames:\r\n'
+
+    for filename in filenames:
+        body += '\r\n- ' + filename
 
     msg = email.MIMEMultipart.MIMEMultipart()
     msg['From'] = fromaddr
@@ -30,14 +33,6 @@ def send_positive_report(filename):
     msg['Subject'] = sub
     msg.attach(MIMEText(body))
     msg.attach(MIMEText('Best regards,\r\nStego Reporter Bot', 'plain'))
-
-    s_file = open(filename, "rb")
-
-    msg.attach(MIMEApplication(
-        s_file.read(),
-        Content_Disposition='attachment; filename="%s"' % basename(filename),
-        Name=basename(filename)
-    ))
 
     server.sendmail(login, tolist, msg.as_string())
     server.quit()

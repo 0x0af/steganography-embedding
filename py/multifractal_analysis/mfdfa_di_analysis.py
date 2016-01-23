@@ -1,11 +1,9 @@
 import time
-
 import numpy
 import scipy
 from PIL import Image
 from numpy import *
 from scipy import io
-
 from py.multifractal_analysis.mfdfa_core import *
 
 
@@ -93,9 +91,7 @@ def get_row_spectrum(multifractal, qstep=0.1, u_lim=15, l_lim=-15):
 
 
 def analyze_image(image_name, image, skip):
-    image.resize((512, 512), Image.ANTIALIAS)
-
-    matrix_truecolor = numpy.array(image)
+    matrix_truecolor = image
 
     spectrum = numpy.zeros((3, 512, 4, 300))  # 3 color channels, 512 rows, 4 lines of 300 values
 
