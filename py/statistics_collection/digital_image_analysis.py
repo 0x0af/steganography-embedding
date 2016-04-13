@@ -10,8 +10,7 @@ from py.multifractal_analysis.mfdfa_di_analysis import analyze_image
 from py.pseudorandomness_sources.arnold_cat_map import ArnoldCatMapEncoder
 from py.pseudorandomness_sources.huffman_encoding import HuffmanEncoder
 from py.pseudorandomness_sources.logistic_map import LogisticMapEncoder
-from py.staganography.dey_method import DeyEmbedder
-from py.statistics_collection.send_report import send_positive_report, send_issue_report
+from py.steganography.dey_method import DeyEmbedder
 
 OPTIMAL_SKIP = 16
 STEGO_NAME = 'stego.png'
@@ -45,9 +44,9 @@ def analyze_dir(directory, start_index, stop_index):
             analyze_image(am_name, arnold_steganogram, OPTIMAL_SKIP)
             analyze_image(he_name, huffman_steganogram, OPTIMAL_SKIP)
             analyze_image(lm_name, logistic_steganogram, OPTIMAL_SKIP)
-            send_positive_report(c_name, am_name, he_name, lm_name)
         except Exception, e:
-            send_issue_report(f, e, repr(traceback.format_exc()))
+            print e
+            break
 
 
 def main(argv):

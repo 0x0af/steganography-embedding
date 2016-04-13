@@ -16,7 +16,7 @@ import pywt
 import scipy
 from scipy import misc
 
-from py.staganography.embedding_method import *
+from py.steganography.embedding_method import *
 from py.pseudorandomness_sources.arnold_cat_map import ArnoldCatMapDecoder
 from py.pseudorandomness_sources.arnold_cat_map import ArnoldCatMapEncoder
 from py.pseudorandomness_sources.logistic_map import LogisticMapEncoder, LogisticMapDecoder
