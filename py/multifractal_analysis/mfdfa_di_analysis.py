@@ -60,15 +60,16 @@ from scipy import io
 
 
 def get_row_spectrum(signal, qstep=0.1, u_lim=15, l_lim=-15):
-    scaling_window_sizes = numpy.floor(2.0 ** numpy.arange(1, 9)).astype('i4')
+    scaling_window_sizes = numpy.floor(2.0 ** numpy.arange(5, 10)).astype('i4')
 
-    q = numpy.arange(l_lim + qstep, u_lim + qstep, qstep)
+    q = numpy.arange(l_lim + qstep, u_lim + qstep, qstep, dtype=numpy.float64)
 
     cumulative_sums = numpy.cumsum(signal - signal.mean())
 
-    local_linear_trends = zeros((scaling_window_sizes.shape[0], 2 * floor(signal.shape[0] / min(scaling_window_sizes))))
+    rms = zeros((scaling_window_sizes.shape[0], 2 * floor(signal.shape[0] / min(scaling_window_sizes))),
+                dtype=numpy.float64)
 
-    print local_linear_trends.shape
+    # print rms.shape
 
     for i in range(0, scaling_window_sizes.shape[0]):
         for j in range(0, int(floor(signal.shape[0] / scaling_window_sizes[i]))):
@@ -79,16 +80,16 @@ def get_row_spectrum(signal, qstep=0.1, u_lim=15, l_lim=-15):
             right_fit = polyfit(current_position_right, cumulative_sums[current_position_right], 1)
             left_curve = polyval(left_fit, current_position_left)
             right_curve = polyval(right_fit, current_position_right)
-            local_linear_trends[i, j] = sqrt(mean((cumulative_sums[current_position_left] - left_curve) ** 2))
-            local_linear_trends[i, j + floor(signal.shape[0] / scaling_window_sizes[i])] = sqrt(
+            rms[i, j] = sqrt(mean((cumulative_sums[current_position_left] - left_curve) ** 2))
+            rms[i, j + floor(signal.shape[0] / scaling_window_sizes[i])] = sqrt(
                 mean((cumulative_sums[current_position_right] - right_curve) ** 2))
 
     Hq = zeros(q.shape)
 
     for k in range(0, q.shape[0]):
-        fluctuation_function = zeros(scaling_window_sizes.shape)
+        fluctuation_function = zeros(scaling_window_sizes.shape, dtype=numpy.float64)
         for i in range(0, scaling_window_sizes.shape[0]):
-            trend = local_linear_trends[i, local_linear_trends[i, :] != 0]
+            trend = rms[i, rms[i, :] != 0]
             if q[k] != 0:
                 fluctuation_function[i] = mean(trend ** q[k]) ** (1 / q[k])
             else:

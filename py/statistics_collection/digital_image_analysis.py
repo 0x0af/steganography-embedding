@@ -1,7 +1,6 @@
 import getopt
 import os
 import sys
-import traceback
 
 import numpy
 from PIL import Image
