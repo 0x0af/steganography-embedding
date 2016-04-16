@@ -45,7 +45,6 @@ def analyze_dir(directory, start_index, stop_index):
             analyze_image(lm_name, logistic_steganogram, OPTIMAL_SKIP)
         except Exception, e:
             print e
-            break
 
 
 def main(argv):
