@@ -91,9 +91,9 @@ def get_row_spectrum(signal, qstep=0.1, u_lim=15, l_lim=-15):
         for i in range(0, scaling_window_sizes.shape[0]):
             trend = rms[i, rms[i, :] != 0]
             if q[k] != 0:
-                fluctuation_function[i] = mean(trend ** q[k]) ** (1 / q[k])
+                fluctuation_function[i] = mean(trend ** q[k], dtype=numpy.float64) ** (1 / q[k])
             else:
-                fluctuation_function[i] = exp(0.5 * mean(log(trend ** 2)))
+                fluctuation_function[i] = exp(0.5 * mean(log(trend ** 2), dtype=numpy.float64))
         try:
             not_nan_positions = numpy.invert(isnan(log(fluctuation_function))) * \
                                 numpy.invert(isinf(log(fluctuation_function)))
